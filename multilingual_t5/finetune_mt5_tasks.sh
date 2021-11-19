@@ -17,49 +17,9 @@ MODEL_DIR="${BUCKET}${TASK}"
 # Default MAX_DECODE_LENGTH
 # Note: Set it to a larger value when task targets have more than 128 tokens.
 MAX_DECODE_LENGTH=128
-
-if [[ "$TASK" == *"xnli"* ]]; then
-  BATCH_SIZE=1048576
-  SEQUENCE_LENGTH_GIN="xnli"
-  FINTUNE_STEPS=8000
-fi
-
-if [[ "$TASK" == *"pawsx"* ]]; then
-  BATCH_SIZE=131072
-  SEQUENCE_LENGTH_GIN="pawsx"
-  FINTUNE_STEPS=12000
-fi
-
-if [[ "$TASK" == *"xquad"* ]]; then
-  BATCH_SIZE=131072
-  SEQUENCE_LENGTH_GIN="xquad"
-  MAX_DECODE_LENGTH=512
-  FINTUNE_STEPS=8000
-fi
-
-if [[ "$TASK" == *"tydiqa"* ]]; then
-  BATCH_SIZE=131072
-  SEQUENCE_LENGTH_GIN="tydiqa"
-  MAX_DECODE_LENGTH=512
-  FINTUNE_STEPS=8000
-fi
-
-if [[ "$TASK" == *"mlqa"* ]]; then
-  BATCH_SIZE=131072
-  SEQUENCE_LENGTH_GIN="mlqa"
-  MAX_DECODE_LENGTH=512
-  FINTUNE_STEPS=12000
-fi
-
-if [[ "$TASK" == *"ner"* ]]; then
-  SEQUENCE_LENGTH_GIN="ner"
-  MAX_DECODE_LENGTH=128
-  if [[ "$TASK" == *"zeroshot"* ]]; then
-    BATCH_SIZE=65536
-  else
-    BATCH_SIZE=131072
-  fi
-fi
+BATCH_SIZE=1048576
+SEQUENCE_LENGTH_GIN="xnli"
+FINTUNE_STEPS=8000
 # ==== Run fine-tuning ====
 CUDA_VISIABLE_DEVICES=0,1 python -m t5.models.mesh_transformer_main \
 
