@@ -1,0 +1,5 @@
+#folders
+mt5large/
+
+#files
+model.ckpt*
