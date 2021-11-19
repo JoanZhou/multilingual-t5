@@ -6,11 +6,11 @@ export ZONE=yourzone
 export BUCKET=yourbucket
 export TPU=yourtpu
 
-ctpu up --name=$TPU --project=$PROJECT --zone=$ZONE --tpu-size=v3-256 --tpu-only --noconf
+#ctpu up --name=$TPU --project=$PROJECT --zone=$ZONE --tpu-size=v3-256 --tpu-only --noconf
 
 TASK=mt5_xnli_zeroshot
 
-PRETRAINED_DIR=gs://t5-data/pretrained_models/mt5/large
+PRETRAINED_DIR=../mt5large
 PRETRAINED_STEPS=1000000
 MODEL_DIR="${BUCKET}${TASK}"
 
@@ -61,8 +61,8 @@ if [[ "$TASK" == *"ner"* ]]; then
   fi
 fi
 # ==== Run fine-tuning ====
-python -m t5.models.mesh_transformer_main \
-  --tpu="${TPU}" \
+CUDA_VISIABLE_DEVICES=0,1 python -m t5.models.mesh_transformer_main \
+
   --gcp_project="${PROJECT}" \
   --tpu_zone="${ZONE}" \
   --model_dir="${MODEL_DIR}" \
