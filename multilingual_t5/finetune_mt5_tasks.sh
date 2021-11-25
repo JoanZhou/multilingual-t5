@@ -24,11 +24,11 @@ FINTUNE_STEPS=8000
 CUDA_VISIABLE_DEVICES=0,1 python -m t5.models.mesh_transformer_main \
 
   --gcp_project="${PROJECT}" \
-  --tpu_zone="${ZONE}" \
+#  --tpu_zone="${ZONE}" \
   --model_dir="${MODEL_DIR}" \
   --gin_file="${PRETRAINED_DIR}/operative_config.gin" \
   --gin_file="sequence_lengths/${SEQUENCE_LENGTH_GIN}.gin" \
-  --gin_param="utils.tpu_mesh_shape.tpu_topology = 'v3-256'" \
+ # --gin_param="utils.tpu_mesh_shape.tpu_topology = 'v3-256'" \
   --gin_param="MIXTURE_NAME = '${TASK}'" \
   --gin_param="utils.run.train_steps=$((PRETRAINED_STEPS+FINETUNE_STEPS))" \
   --gin_param="utils.run.init_checkpoint='${PRETRAINED_DIR}/model.ckpt-${PRETRAINED_STEPS}'" \
